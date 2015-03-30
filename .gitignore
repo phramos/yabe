@@ -61,3 +61,4 @@ server.pid
 .eclipse
 .classpath
 eclipse/
+/conf
