@@ -9,6 +9,8 @@ import play.mvc.*;
 
 import java.util.*;
 
+import org.hibernate.Criteria;
+
 import models.*;
 
 public class Application extends Controller {
@@ -62,5 +64,5 @@ public class Application extends Controller {
 	    Cache.set(id, code, "10mn");
 	    renderBinary(captcha);
 	}
-
+	
 }
