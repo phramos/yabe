@@ -1,6 +1,8 @@
 package controllers;
 
 import play.*;
+import play.data.validation.Required;
+import play.libs.Images;
 import play.mvc.*;
 
 import java.util.*;
@@ -23,6 +25,29 @@ public class Application extends Controller {
 				.fetch(10);
 		render(frontPost, olderPosts);
 
+	}
+
+	public static void show(Long id) {
+		Post post = Post.findById(id);
+		render(post);
+	}
+
+	public static void postComment(Long postId, @Required String author,
+			@Required String content) {
+		Post post = Post.findById(postId);
+		
+		if (validation.hasErrors()) {
+			render("Application/show.html", post);
+		}
+
+		post.addComment(author, content);
+		flash.success("Comentário escrito por %s publicado com sucesso!", author);
+		show(postId);
+	}
+	
+	public static void captcha() {
+	    Images.Captcha captcha = Images.captcha();
+	    renderBinary(captcha);
 	}
 
 }
