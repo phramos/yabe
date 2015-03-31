@@ -89,7 +89,7 @@ public class BasicTest extends UnitTest {
 		assertNotNull(secondComment.postedAt);
 	}
 
-	@Test
+	/*@Test
 	public void useTheCommentsRelation() {
 		// Create a new user and save it
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
@@ -162,5 +162,5 @@ public class BasicTest extends UnitTest {
 		assertEquals(4, Comment.count());
 
 	}
-
+	*/
 }
