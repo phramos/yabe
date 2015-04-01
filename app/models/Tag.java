@@ -1,13 +1,17 @@
 package models;
 
 import play.*;
+import play.data.validation.Required;
 import play.db.jpa.*;
 
 import javax.persistence.*;
+
 import java.util.*;
 
 @Entity
 public class Tag extends Model implements Comparable<Tag> {
+
+	@Required
 	public String name;
 
 	private Tag(String name) {
@@ -29,11 +33,12 @@ public class Tag extends Model implements Comparable<Tag> {
 		}
 		return tag;
 	}
-	
+
 	public static List<Map> getCloud() {
-	    List<Map> result = Tag.find(
-	        "select new map(t.name as tag, count(p.id) as pound) from Post p join p.tags as t group by t.name order by t.name"
-	    ).fetch();
-	    return result;
+		List<Map> result = Tag
+				.find("select new map(t.name as tag, count(p.id) as pound) from Post p join p.tags as t group by t.name order by t.name")
+				.fetch();
+		return result;
 	}
+
 }
