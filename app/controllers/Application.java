@@ -38,35 +38,34 @@ public class Application extends Controller {
 	}
 
 	public static void postComment(Long postId,
-									@Required(message="Informe o author") String author,
-									@Required(message="Informe o comentário") String content,
-									@Required(message="Informe o códico") String code, 
-									String randomID) {
+			@Required(message = "Informe o author") String author,
+			@Required(message = "Informe o comentário") String content,
+			@Required(message = "Informe o códico") String code, String randomID) {
 		Post post = Post.findById(postId);
-	    validation.equals(
-	        code, Cache.get(randomID)
-	    ).message("Invalid code. Please type it again");
-	   
-	    if(validation.hasErrors()) {
-	        render("Application/show.html", post, randomID);
-	    }
-	   
-	    post.addComment(author, content);
-	    flash.success("Thanks for posting %s", author);
-	    Cache.delete(randomID);
-	    show(postId);
-	
+		if (!Play.id.equals("test")) {
+			validation.equals(code, Cache.get(randomID)).message(
+					"Invalid code. Please type it again");
+		}
+		if (validation.hasErrors()) {
+			render("Application/show.html", post, randomID);
+		}
+
+		post.addComment(author, content);
+		flash.success("Thanks for posting %s", author);
+		Cache.delete(randomID);
+		show(postId);
+
 	}
-	
+
 	public static void captcha(String id) {
 		Images.Captcha captcha = Images.captcha();
-	    String code = captcha.getText("#E4EAFD");
-	    Cache.set(id, code, "10mn");
-	    renderBinary(captcha);
+		String code = captcha.getText("#E4EAFD");
+		Cache.set(id, code, "10mn");
+		renderBinary(captcha);
 	}
-	
+
 	public static void listTagged(String tag) {
-	    List<Post> posts = Post.findTaggedWith(tag);
-	    render(tag, posts);
+		List<Post> posts = Post.findTaggedWith(tag);
+		render(tag, posts);
 	}
 }

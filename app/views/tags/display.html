@@ -37,7 +37,7 @@
     <div class="comments">
         <h3>
             ${_post.comments.size() ?: 'nenhum'} 
-            comment${_post.comments.size().pluralize()}
+            comentário${_post.comments.size()>1?'s':''}
         </h3>
         
         #{list items:_post.comments, as:'comment'}
